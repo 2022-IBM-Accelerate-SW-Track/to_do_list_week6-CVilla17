@@ -4,7 +4,12 @@ const express = require("express"),
   cors = require("cors");
 const bodyParser = require("body-parser");
 const fs = require("fs");
-
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  })
+);
 const basicAuth = require("express-basic-auth");
 var { authenticator, upsertUser, cookieAuth } = require("./authentication");
 const auth = basicAuth({
@@ -13,12 +18,6 @@ const auth = basicAuth({
 const cookieParser = require("cookie-parser");
 app.use(cookieParser("82e4e438a0705fabf61f9854e3b575af"));
 
-app.use(
-  cors({
-    credentials: true,
-    origin: "http://localhost:3000",
-  })
-);
 app.use(bodyParser.json({ extended: true }));
 app.listen(port, () => console.log("Backend server live on " + port));
 
